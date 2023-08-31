@@ -11,6 +11,8 @@ function App() {
 		phone: "123-4567",
 	});
 
+	const [educationInfo, setEducationInfo] = useState([]);
+
 	return (
 		<>
 			<h1>My Resume Builder</h1>
@@ -18,8 +20,14 @@ function App() {
 				generalInfo={generalInfo}
 				onHandleGeneralChange={SetGeneralInfo}
 			/>
-			<EducationForm />
-			<TemplateView generalInfo={generalInfo} />
+			<EducationForm
+				educationInfo={educationInfo}
+				setEducationInfo={setEducationInfo}
+			/>
+			<TemplateView
+				generalInfo={generalInfo}
+				educationInfo={educationInfo}
+			/>
 		</>
 	);
 }
