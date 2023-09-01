@@ -3,6 +3,7 @@ import TemplateView from "./components/TemplateView";
 import "./App.css";
 import GeneralForm from "./components/GeneralForm";
 import EducationForm from "./components/EducationForm";
+import ExperienceForm from "./components/ExperienceForm";
 
 function App() {
 	const [generalInfo, SetGeneralInfo] = useState({
@@ -13,21 +14,34 @@ function App() {
 
 	const [educationInfo, setEducationInfo] = useState([]);
 
+	const [expInfo, setExpInfo] = useState([]);
+
 	return (
 		<>
 			<h1>My Resume Builder</h1>
-			<GeneralForm
-				generalInfo={generalInfo}
-				onHandleGeneralChange={SetGeneralInfo}
-			/>
-			<EducationForm
-				educationInfo={educationInfo}
-				setEducationInfo={setEducationInfo}
-			/>
-			<TemplateView
-				generalInfo={generalInfo}
-				educationInfo={educationInfo}
-			/>
+			<div className="main-display">
+				<div className="side-display">
+					<GeneralForm
+						generalInfo={generalInfo}
+						onHandleGeneralChange={SetGeneralInfo}
+					/>
+					<EducationForm
+						educationInfo={educationInfo}
+						setEducationInfo={setEducationInfo}
+					/>
+					<ExperienceForm
+						expInfo={expInfo}
+						setExpInfo={setExpInfo}
+					/>
+				</div>
+				<div className="side-display">
+					<TemplateView
+						generalInfo={generalInfo}
+						educationInfo={educationInfo}
+						expInfo={expInfo}
+					/>
+				</div>
+			</div>
 		</>
 	);
 }

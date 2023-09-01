@@ -20,25 +20,17 @@ const SelectMenu = ({
 				id={id}
 				name={name}
 				onChange={handleOnChange}
+				value={currentData[name]}
 			>
 				{children}
-				{dateOptions.map((date, index) =>
-					index === 0 ? (
-						<option
-							key={index}
-							value={date}
-						>
-							{date}
-						</option>
-					) : (
-						<option
-							key={index}
-							value={date}
-						>
-							{date}
-						</option>
-					)
-				)}
+				{dateOptions.map((date, index) => (
+					<option
+						key={index}
+						value={date}
+					>
+						{date}
+					</option>
+				))}
 			</select>
 		</>
 	);

@@ -1,10 +1,13 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { monthOptions, yearOptions } from "../data";
+import { v4 as uuidv4 } from "uuid";
 import SelectMenu from "./SelectMenu";
+import EducationList from "./EducationList";
 
 const EducationForm = ({ educationInfo, setEducationInfo }) => {
-	const [currentData, setCurrentData] = useState({
+	const [currentEducation, setCurrentEducation] = useState({
+		edID: uuidv4(),
 		school: "",
 		degree: "",
 		fieldOfStudy: "",
@@ -15,13 +18,17 @@ const EducationForm = ({ educationInfo, setEducationInfo }) => {
 	});
 
 	const handleDataChange = (e) => {
-		setCurrentData({ ...currentData, [e.target.name]: e.target.value });
+		setCurrentEducation({
+			...currentEducation,
+			[e.target.name]: e.target.value,
+		});
 	};
 
 	const handleOnSubmit = (e) => {
 		e.preventDefault();
-		setEducationInfo(educationInfo.concat(currentData));
-		setCurrentData({
+		setEducationInfo(educationInfo.concat(currentEducation));
+		setCurrentEducation({
+			edID: uuidv4(),
 			school: "",
 			degree: "",
 			fieldOfStudy: "",
@@ -41,7 +48,7 @@ const EducationForm = ({ educationInfo, setEducationInfo }) => {
 					type="text"
 					id="school"
 					name="school"
-					value={currentData.school}
+					value={currentEducation.school}
 					onChange={handleDataChange}
 				></input>
 				<label htmlFor="degree">Degree</label>
@@ -49,7 +56,7 @@ const EducationForm = ({ educationInfo, setEducationInfo }) => {
 					type="text"
 					id="degree"
 					name="degree"
-					value={currentData.degree}
+					value={currentEducation.degree}
 					onChange={handleDataChange}
 				></input>
 				<label htmlFor="fieldOfStudy">Field of Study</label>
@@ -57,47 +64,17 @@ const EducationForm = ({ educationInfo, setEducationInfo }) => {
 					type="text"
 					id="fieldOfStudy"
 					name="fieldOfStudy"
-					value={currentData.fieldOfStudy}
+					value={currentEducation.fieldOfStudy}
 					onChange={handleDataChange}
 				></input>
-				{/* <label htmlFor="startMonth">Start Month</label>
-				<select
-					id="startMonth"
-					name="startMonth"
-					onChange={handleDataChange}
-				>
-					{monthOptions.map((month, index) => (
-						<option
-							key={index}
-							value={month}
-						>
-							{month}
-						</option>
-					))}
-				</select>
-				<label htmlFor="startYear">Start Year</label>
-				<select
-					id="startYear"
-					name="startYear"
-					onChange={handleDataChange}
-				>
-					{yearOptions.map((year, index) => (
-						<option
-							key={index}
-							value={year}
-						>
-							{year}
-						</option>
-					))}
-				</select> */}
 				<div>
 					<SelectMenu
 						id="startMonth"
 						name="startMonth"
 						text="Start Month"
 						dateOptions={monthOptions}
-						currentData={currentData}
-						setCurrentData={setCurrentData}
+						currentData={currentEducation}
+						setCurrentData={setCurrentEducation}
 					>
 						<option value="">--Please select starting month--</option>
 					</SelectMenu>
@@ -106,46 +83,51 @@ const EducationForm = ({ educationInfo, setEducationInfo }) => {
 						name="startYear"
 						text="Start Year"
 						dateOptions={yearOptions}
-						currentData={currentData}
-						setCurrentData={setCurrentData}
+						currentData={currentEducation}
+						setCurrentData={setCurrentEducation}
 					>
-						{/* <option value="">--Please select starting year--</option> */}
+						<option value="">--Please select starting year--</option>
 					</SelectMenu>
 					<SelectMenu
 						id="endMonth"
 						name="endMonth"
 						text="End Month"
 						dateOptions={monthOptions}
-						currentData={currentData}
-						setCurrentData={setCurrentData}
+						currentData={currentEducation}
+						setCurrentData={setCurrentEducation}
 					>
-						{/* <option value="">--Please select ending month--</option> */}
+						<option value="">--Please select ending month--</option>
 					</SelectMenu>
 					<SelectMenu
 						id="endYear"
 						name="endYear"
 						text="End Year"
 						dateOptions={yearOptions}
-						currentData={currentData}
-						setCurrentData={setCurrentData}
+						currentData={currentEducation}
+						setCurrentData={setCurrentEducation}
 					>
-						{/* <option value="">--Please select ending month--</option> */}
+						<option value="">--Please select ending month--</option>
 					</SelectMenu>
 				</div>
 				<button type="submit">SAVE EDUCATION</button>
 			</form>
 			<br></br>
 			<div>
-				TESTING {currentData.school} {currentData.degree}{" "}
-				{currentData.fieldOfStudy}
+				TESTING {currentEducation.school} {currentEducation.degree}{" "}
+				{currentEducation.fieldOfStudy}
 				<p>
-					Start Month :{currentData.startMonth} Start year :{" "}
-					{currentData.startYear}
+					Start Month :{currentEducation.startMonth} Start year:
+					{currentEducation.startYear}
 				</p>
 				<p>
-					End Month: {currentData.endMonth} End Year: {currentData.endYear}
+					End Month: {currentEducation.endMonth} End Year:
+					{currentEducation.endYear}
 				</p>
 			</div>
+			<EducationList
+				educationInfo={educationInfo}
+				setEducationInfo={setEducationInfo}
+			/>
 		</section>
 	);
 };

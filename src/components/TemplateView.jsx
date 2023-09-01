@@ -1,17 +1,18 @@
 import PropTypes from "prop-types";
 
-export const TemplateView = ({ generalInfo, educationInfo }) => {
+export const TemplateView = ({ generalInfo, educationInfo, expInfo }) => {
 	const { fullName, email, phone } = generalInfo;
 
 	return (
-		<div>
-			<div>
+		<>
+			<section>
 				<h3>General Information Section</h3>
 				<p>My name is {fullName}</p>
 				<p>My email is {email}</p>
 				<p>My phone number is {phone}</p>
-			</div>
-			<div>
+			</section>
+			<hr />
+			<section>
 				<h3>Education Information Section</h3>
 				{educationInfo.map((education, index) => {
 					const {
@@ -39,14 +40,46 @@ export const TemplateView = ({ generalInfo, educationInfo }) => {
 						</div>
 					);
 				})}
-			</div>
-		</div>
+			</section>
+			<hr />
+			<section>
+				<h3>Experience Section</h3>
+				{expInfo.map((experience, index) => {
+					const {
+						company,
+						title,
+						location,
+						duties,
+						startMonth,
+						startYear,
+						endMonth,
+						endYear,
+					} = experience;
+					return (
+						<div key={index}>
+							<h3>{company}</h3>
+							<p>
+								{title} {location}
+							</p>
+							<p>{duties}</p>
+							<p>
+								Start {startMonth} {startYear}
+							</p>
+							<p>
+								End {endMonth} {endYear}
+							</p>
+						</div>
+					);
+				})}
+			</section>
+		</>
 	);
 };
 
 TemplateView.propTypes = {
 	generalInfo: PropTypes.object,
 	educationInfo: PropTypes.array,
+	expInfo: PropTypes.array,
 };
 
 export default TemplateView;
